@@ -40,7 +40,7 @@
 		"hooks": {
 			"before:bump": "bash ./bin/create-release.sh ${version}"
 		},
-		"gitlab": {
+		"github": {
 			"release": true,
 			"assets": [
 				"code-block-syntax-highlight.zip"
