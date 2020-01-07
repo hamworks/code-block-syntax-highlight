@@ -1,0 +1,32 @@
+image: node:alpine
+stages:
+  - build
+  - release
+
+build:
+  stage: build
+  dependencies: []
+  before_script:
+    - apk add rsync zip
+  script:
+    - mkdir -p .cache
+    - npm config set cache $CI_PROJECT_DIR/.cache/npm --global
+    - >
+      (test -d node_modules/ && diff .cache/package.json package.json > /dev/null 2>&1) ||
+      (rm -fr node_modules/ &&
+        (test -f package-lock.json && npm ci) ||
+        npm install
+      )
+    - npm run build
+    - cp -p package.json .cache/
+    - rsync -a --exclude-from=.distignore ./ ./distribution/
+    - cd distribution
+    - zip -r ../code-block-syntax-highlight.zip ./
+    - cd ../
+  cache:
+    paths:
+      - .cache/
+      - node_modules/
+  artifacts:
+    paths:
+      - code-block-syntax-highlight.zip
