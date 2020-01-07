@@ -2,6 +2,8 @@
 
 namespace HAMWORKS\Code_Block_Syntax_Highlight;
 
+use DOMDocument;
+
 class Filter {
 
 	/**
@@ -19,13 +21,27 @@ class Filter {
 	 *
 	 * @return string
 	 */
-	function render_block( $block_content, $block ) {
-		if ( 'core/code' === $block ) {
-			$result = Utility::syntaxHighlight( $block_content );
-			return $result->value;
+	public function render_block( string $block_content, array $block ) {
+		if ( 'core/code' === $block['blockName'] ) {
+			return $this->render( $block_content );
 		}
 
 		return $block_content;
+	}
+
+	private function render( $block_content ) {
+		$result = Utility::syntaxHighlight( $this->get_content( $block_content ) );
+		return '<pre class="wp-block-code"><code>' . $result->value . '</code></pre>';
+	}
+
+	private function get_content( string $block_content ) {
+		$dom                     = new DOMDocument();
+		$dom->preserveWhiteSpace = false;
+		$dom->formatOutput       = true;
+		$dom->recover            = true;
+		$dom->loadXML( $block_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+
+		return $dom->textContent;
 	}
 
 }

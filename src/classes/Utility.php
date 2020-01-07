@@ -2,6 +2,7 @@
 
 namespace HAMWORKS\Code_Block_Syntax_Highlight;
 
+use DOMDocument;
 use Highlight\HighlightResult;
 
 class Utility {
@@ -33,5 +34,4 @@ class Utility {
 
 		return $highlighted;
 	}
-
 }

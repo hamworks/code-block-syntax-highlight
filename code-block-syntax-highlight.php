@@ -34,6 +34,7 @@ const PLUGIN_FILE = __FILE__;
  * @type string $Network Multisite.
  * }
  */
+
 function get_plugin_data() {
 	static $data = null;
 	if ( empty( $data ) ) {
