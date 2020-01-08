@@ -7,8 +7,8 @@
 	"scripts": {
 		"env": "wp-scripts env",
 		"test": "wp-scripts test-unit-js --config tests/js/jest.config.json",
-		"start": "wp-scripts start ./src/index.js ./src/front.js & npm run postcss -- -w",
-		"build": "wp-scripts build ./src/index.js ./src/front.js && npm run postcss",
+		"start": "wp-scripts start & npm run postcss -- -w",
+		"build": "wp-scripts build && npm run postcss",
 		"lint-js": "wp-scripts lint-js",
 		"postcss": "postcss ./src/[^_]*.css --dir ./build --verbose"
 	},
@@ -23,6 +23,11 @@
 	},
 	"devDependencies": {
 		"@wordpress/browserslist-config": "2.6.0",
+		"@wordpress/components": "8.5.0",
+		"@wordpress/compose": "3.9.0",
+		"@wordpress/editor": "9.9.0",
+		"@wordpress/element": "2.10.0",
+		"@wordpress/hooks": "2.6.0",
 		"@wordpress/scripts": "^6.1.1",
 		"cssnano": "^4.1.10",
 		"postcss-cli": "^6.1.3",
