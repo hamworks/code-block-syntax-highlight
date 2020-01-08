@@ -23,15 +23,24 @@ class Filter {
 	 */
 	public function render_block( string $block_content, array $block ) {
 		if ( 'core/code' === $block['blockName'] ) {
-			return $this->render( $block_content );
+			return $this->render( $block_content, $block );
 		}
 
 		return $block_content;
 	}
 
-	private function render( $block_content ) {
-		$result = Utility::syntaxHighlight( $this->get_content( $block_content ) );
-		return '<pre class="wp-block-code"><code>' . $result->value . '</code></pre>';
+	/**
+	 * @param $block_content
+	 * @param array $block
+	 *
+	 * @return string
+	 */
+	private function render( $block_content, array $block ) {
+		$language    = $block['attrs']['language'];
+		$class_names = $block['attrs']['className'];
+		$result      = Utility::syntaxHighlight( $this->get_content( $block_content ), $language );
+
+		return '<pre class="wp-block-code ' . esc_attr( $class_names ) . '"><code>' . $result->value . '</code></pre>';
 	}
 
 	private function get_content( string $block_content ) {
