@@ -7,7 +7,7 @@
  * Author URI:      https://ham.works
  * Text Domain:     code-block-syntax-highlight
  * Domain Path:     /languages
- * Version: 0.0.4
+ * Version: 0.1.0
  * @package         Code_Block_Syntax_Highlight
  */
 
