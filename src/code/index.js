@@ -5,11 +5,11 @@ import { PanelBody, SelectControl } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
 
 const languages = [
-	'html',
-	'css',
-	'javascript',
-	'scss',
-	'php'
+	'HTML',
+	'CSS',
+	'JavaScript',
+	'SCSS',
+	'PHP'
 ];
 
 const withInspectorControls = createHigherOrderComponent( ( BlockEdit ) => {
@@ -33,7 +33,7 @@ const withInspectorControls = createHigherOrderComponent( ( BlockEdit ) => {
 									label: __( 'Select language', 'code-block-syntax-highlight' ),
 								},
 								...languages.map( ( lang ) => ( {
-									label: lang,
+									label: lang.toLowerCase(),
 									value: lang,
 								} ) ),
 							] }
