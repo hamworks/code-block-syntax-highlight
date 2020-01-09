@@ -39,7 +39,6 @@ class Filter {
 		$language    = $block['attrs']['language'];
 		$class_names = $block['attrs']['className'];
 		$result      = Utility::syntaxHighlight( $this->get_content( $block_content ), $language );
-
 		return '<pre class="wp-block-code ' . esc_attr( $class_names ) . '"><code>' . $result->value . '</code></pre>';
 	}
 

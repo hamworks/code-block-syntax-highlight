@@ -1,8 +1,9 @@
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-import { InspectorControls } from '@wordpress/editor';
+import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, SelectControl } from '@wordpress/components';
 import { addFilter } from '@wordpress/hooks';
+import CodeEditor from './CodeEditor'
 
 const languages = [
 	'HTML',
@@ -14,14 +15,21 @@ const languages = [
 
 const withInspectorControls = createHigherOrderComponent( ( BlockEdit ) => {
 	return ( props ) => {
-		const { name, attributes, setAttributes } = props;
+		const { name, attributes, setAttributes, clientId } = props;
 		const { language } = attributes;
 		if ( name !== 'core/code' ) {
 			return <BlockEdit { ...props } />;
 		}
 		return (
 			<>
-				<BlockEdit { ...props } />
+				<CodeEditor
+					mode={ language }
+					id={ `editor-${ clientId }` }
+					value={ attributes.content }
+					onChange={ ( content ) => setAttributes( { content } ) }
+					placeholder={ __( 'Write Code…' ) }
+					aria-label={ __( 'Code' ) }
+				/>
 				<InspectorControls>
 					<PanelBody title={ 'Highlight Option' }>
 						<SelectControl
@@ -30,11 +38,11 @@ const withInspectorControls = createHigherOrderComponent( ( BlockEdit ) => {
 							options={ [
 								{
 									value: '',
-									label: __( 'Select language', 'code-block-syntax-highlight' ),
+									label: __( 'None (Auto detection)', 'code-block-syntax-highlight' ),
 								},
 								...languages.map( ( lang ) => ( {
-									label: lang.toLowerCase(),
-									value: lang,
+									label: lang,
+									value: lang.toLowerCase(),
 								} ) ),
 							] }
 							onChange={ ( value ) => {

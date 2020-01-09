@@ -16,11 +16,15 @@ class Assets {
 	}
 
 	function enqueue_block_editor_assets() {
+		wp_enqueue_code_editor( [ 'type' => 'htmlmixed' ] );
+		wp_enqueue_code_editor( [ 'type' => 'css' ] );
+		wp_enqueue_code_editor( [ 'type' => 'javascript' ] );
+		wp_add_inline_style( 'code-editor', '.CodeMirror { font-size: 14px }' );
 		$script_asset = require( dirname( PLUGIN_FILE ) . '/build/index.asset.php' );
 		wp_enqueue_script(
 			'code-block-syntax-highlight-editor',
 			plugins_url( 'build/index.js', PLUGIN_FILE ),
-			$script_asset['dependencies'],
+			array_merge( $script_asset['dependencies'], [ 'code-editor' ] ),
 			$script_asset['version']
 		);
 
