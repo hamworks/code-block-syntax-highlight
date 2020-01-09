@@ -43,7 +43,8 @@
 	},
 	"release-it": {
 		"hooks": {
-			"before:bump": "bash ./bin/create-release.sh ${version}"
+			"before:bump": "bash ./bin/create-release.sh ${version}",
+			"after:bump": "npm run build"
 		},
 		"github": {
 			"release": true,
