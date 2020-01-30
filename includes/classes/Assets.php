@@ -19,7 +19,25 @@ class Assets {
 		wp_enqueue_code_editor( [ 'type' => 'htmlmixed' ] );
 		wp_enqueue_code_editor( [ 'type' => 'css' ] );
 		wp_enqueue_code_editor( [ 'type' => 'javascript' ] );
-		wp_add_inline_style( 'code-editor', '.CodeMirror { font-size: 14px }' );
+		wp_add_inline_style( 'code-editor', 'div.CodeMirror { font-size: 14px }' );
+		wp_add_inline_style( 'code-editor', '
+		div.CodeMirror pre {
+			padding: 0 4px;
+			border-radius: 0;
+		    border-width: 0;
+		    background: 0 0;
+		    font-family: inherit;
+		    font-size: inherit;
+		    margin: 0;
+		    white-space: pre;
+		    word-wrap: normal;
+		    line-height: inherit;
+		    color: inherit;
+		    z-index: 2;
+		    position: relative;
+		    overflow: visible;
+		    font-variant-ligatures: contextual;
+		}' );
 		$script_asset = require( dirname( PLUGIN_FILE ) . '/build/index.asset.php' );
 		wp_enqueue_script(
 			'code-block-syntax-highlight-editor',

@@ -54,7 +54,7 @@ const withInspectorControls = createHigherOrderComponent( ( BlockEdit ) => {
 			</>
 		);
 	};
-}, 'withInspectorControl' );
+}, 'withInspectorControls' );
 
 addFilter( 'editor.BlockEdit', 'code-block-syntax-highlight/code/with-inspector-controls', withInspectorControls );
 
